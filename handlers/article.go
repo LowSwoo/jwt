@@ -1,6 +1,7 @@
 package handlers
 
 import (
+	"log"
 	"net/http"
 	"strconv"
 
@@ -30,4 +31,14 @@ func GetArticle(ctx *gin.Context) {
 		"title":   article.Title,
 		"payload": article.Content,
 	}, "article.html")
+}
+
+func CreateArticle(ctx *gin.Context) {
+	err := ctx.Request.ParseForm()
+	if err != nil {
+		log.Fatal("PIZDETS")
+		ctx.AbortWithError(http.StatusNotFound, err)
+	}
+	models.CreateArticle(ctx.Request.FormValue("articleTitle"), ctx.Request.FormValue("articleContent"))
+	ctx.Redirect(http.StatusFound, "/")
 }

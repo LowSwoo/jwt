@@ -20,4 +20,5 @@ func main() {
 func initializeRoutes() {
 	router.GET("/", handlers.ShowIndexPage)
 	router.GET("/article/view/:article_id", handlers.GetArticle)
+	router.POST("/create_article", handlers.CreateArticle)
 }
